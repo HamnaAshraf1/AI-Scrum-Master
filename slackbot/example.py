@@ -1,7 +1,7 @@
 import ollama
 import logging
-
 from dotenv import load_dotenv
+from attachment import download, parse_audio
 
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
@@ -14,9 +14,12 @@ load_dotenv()
 app = App(token=SLACK_BOT_TOKEN)
 logging.basicConfig(level=logging.DEBUG)
 
+
 @app.event('app_mention')
 def app_mention(body, say):
-    sender_id = f"<@{body.get('event', {}).get('user')}>"
+    #sender_id = f"<@{body.get('event', {}).get('user')}>"
+    sender_id = body.get('event', {}).get('user')
+
     bot_id = body.get('event', {}).get('text').split()[0]
     recv_msg = body.get('event', {}).get('text').replace(bot_id, '').strip()
 
@@ -26,32 +29,41 @@ def app_mention(body, say):
             'content': recv_msg,
         },
     ])
-    print(resp_msg)
-    say(sender_id + ' ' +resp_msg['message']['content'])
+
+    say(sender_id + ' ' + resp_msg['message']['content'])
 
 
 @app.event('message')
-def app_message(message, say):
-    say(
-        blocks=[
-            {
-                "type": "section",
-                "text": {"type": "mrkdwn", "text": f"Hey there <@{message['user']}>!"},
-                "accessory": {
-                    "type": "button",
-                    "text": {"type": "plain_text", "text": "Click Me"},
-                    "action_id": "button_click"
-                }
-            }
-        ],
-        text=f"Hey there <@{message['user']}>!"
-    )
+def app_message(event, say):
+    #sender_id = f"<@{event.get('user')}>"
+    recv_msg = ''
+
+    sender_id = event.get('user')
+    if 'files' in event:
+        files = event.get('files')
+        for file in files:
+            filepath, headers = download(file['url_private_download'], SLACK_BOT_TOKEN)
+            if file['filetype'].lower() == 'webm':
+                recv_msg += parse_audio(filepath)["text"]
+
+    for text in event.get('text').split():
+        recv_msg += text
+
+    resp_msg = ollama.chat(model='llama3', messages=[
+        {
+            'role': 'user',
+            'content': recv_msg,
+        },
+    ])
+
+    say(resp_msg['message']['content'])
 
 
-@app.action("button_click")
-def handle_some_action(ack, body, logger):
-    ack()
-    logger.info(body)
+
+#@app.action("button_click")
+#def handle_some_action(ack, body, logger):
+#    ack()
+#    logger.info(body)
 
 
 if __name__ == '__main__':
