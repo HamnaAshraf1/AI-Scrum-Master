@@ -15,6 +15,7 @@ load_dotenv()
 app = App(token=SLACK_BOT_TOKEN)
 logging.basicConfig(level=logging.DEBUG)
 
+
 System_Prompt = \
 '''
 You are an AI Scrum Master, dedicated to helping teams effectively implement the Scrum framework and facilitate agile development processes. Your primary responsibilities include:
@@ -27,7 +28,6 @@ In your role, you need to have a deep understanding of agile development, the ab
 
 session = dict()
 
-
 def get_event_userid(event):
     return event.get('event', {}).get('user')
 
@@ -36,6 +36,9 @@ def get_event_botid(event):
 
 def get_event_text(event):
     return event.get('event', {}).get('text')
+
+
+conversation_history = {}
 
 
 @app.event('app_mention')
@@ -61,11 +64,15 @@ def app_mention(event, say):
 def app_message(event, say):
     recv_msg = ''
 
+
 #    print('--------')
 #    print(app.client.conversations_list())
 #    for result in app.client.conversations_list():
 
     sender_id = event.get('user')
+
+    #user_id = event.get('user')
+
     if 'files' in event:
         files = event.get('files')
         for file in files:
@@ -76,6 +83,7 @@ def app_message(event, say):
     for text in event.get('text').split():
         recv_msg += text
 
+
     if sender_id in session.keys():
         session[sender_id] += [{'role': 'user', 'content': recv_msg}]
     else:
@@ -85,8 +93,25 @@ def app_message(event, say):
 
     session[sender_id] += [resp_msg['message']]
 
-    say(resp_msg['message']['content'])
+    #if user_id not in conversation_history:
+    #    conversation_history[user_id] = []
 
+
+    conversation_history[user_id].append({'role': 'user', 'content': recv_msg})
+
+    # resp_msg = ollama.chat(model='llama3', messages=[
+    #     {
+    #         'role': 'user',
+    #         'content': recv_msg,
+    #     },
+    # ])
+    
+    resp_msg = ollama.chat(model='llama3', messages= conversation_history[user_id])
+
+    # Append the model's response to the user's history
+    conversation_history[user_id].append({'role': 'assistant', 'content': resp_msg['message']['content']})
+
+    say(resp_msg['message']['content'])
 
 @app.message('summarize')
 def summarize(event, say):
