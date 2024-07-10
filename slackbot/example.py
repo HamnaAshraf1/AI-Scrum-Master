@@ -14,6 +14,7 @@ load_dotenv()
 app = App(token=SLACK_BOT_TOKEN)
 logging.basicConfig(level=logging.DEBUG)
 
+conversation_history = {}
 
 @app.event('app_mention')
 def app_mention(body, say):
@@ -38,7 +39,8 @@ def app_message(event, say):
     #sender_id = f"<@{event.get('user')}>"
     recv_msg = ''
 
-    sender_id = event.get('user')
+    user_id = event.get('user')
+
     if 'files' in event:
         files = event.get('files')
         for file in files:
@@ -49,15 +51,24 @@ def app_message(event, say):
     for text in event.get('text').split():
         recv_msg += text
 
-    resp_msg = ollama.chat(model='llama3', messages=[
-        {
-            'role': 'user',
-            'content': recv_msg,
-        },
-    ])
+    if user_id not in conversation_history:
+        conversation_history[user_id] = []
+
+    conversation_history[user_id].append({'role': 'user', 'content': recv_msg})
+
+    # resp_msg = ollama.chat(model='llama3', messages=[
+    #     {
+    #         'role': 'user',
+    #         'content': recv_msg,
+    #     },
+    # ])
+    
+    resp_msg = ollama.chat(model='llama3', messages= conversation_history[user_id])
+
+    # Append the model's response to the user's history
+    conversation_history[user_id].append({'role': 'assistant', 'content': resp_msg['message']['content']})
 
     say(resp_msg['message']['content'])
-
 
 
 #@app.action("button_click")
