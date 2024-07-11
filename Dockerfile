@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
+
 RUN pip3 install --no-cache-dir ollama python-dotenv thread openai-whisper slack_bolt
 
 COPY . /workspace
