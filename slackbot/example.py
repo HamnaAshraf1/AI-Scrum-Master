@@ -2,7 +2,10 @@ import ollama
 import logging
 from dotenv import load_dotenv
 from attachment import download, parse_audio
-
+import json
+import schedule
+import time
+from slack_sdk.errors import SlackApiError
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 
@@ -15,6 +18,42 @@ app = App(token=SLACK_BOT_TOKEN)
 logging.basicConfig(level=logging.DEBUG)
 
 conversation_history = {}
+
+with open('config.json') as config_file:
+    config = json.load(config_file)
+
+CHANNEL_IDS = config["CHANNEL_IDS"]
+
+def send_reminder(message):
+    for channel_id in CHANNEL_IDS:
+        try:
+            response = app.client.chat_postMessage(
+                channel=channel_id,
+                text=message
+            )
+            assert response["message"]["text"] == message
+        
+        except SlackApiError as e:
+            print(f"Error sending message to {channel_id}: {e.response['error']}")
+
+def schedule_reminders():
+    for reminder in config["reminders"]:
+        day = reminder["day"]
+        time_str = reminder["time"]
+        message = reminder["message"]
+
+        if day == "Monday":
+            schedule.every().monday.at(time_str).do(send_reminder, message)
+        elif day == "Tuesday":
+            schedule.every().tuesday.at(time_str).do(send_reminder, message)
+        elif day == "Wednesday":
+            schedule.every().wednesday.at(time_str).do(send_reminder, message)
+        elif day == "Thursday":
+            schedule.every().thursday.at(time_str).do(send_reminder, message)
+        elif day == "Friday":
+            schedule.every().friday.at(time_str).do(send_reminder, message)
+
+
 
 @app.event('app_mention')
 def app_mention(body, say):
@@ -62,7 +101,7 @@ def app_message(event, say):
     #         'content': recv_msg,
     #     },
     # ])
-    
+
     resp_msg = ollama.chat(model='llama3', messages= conversation_history[user_id])
 
     # Append the model's response to the user's history
@@ -80,3 +119,11 @@ def app_message(event, say):
 if __name__ == '__main__':
     handler = SocketModeHandler(app, SLACK_APP_TOKEN)
     handler.start()
+
+    schedule_reminders()
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+
+
