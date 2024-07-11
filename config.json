@@ -1,0 +1,30 @@
+{
+    "CHANNEL_IDS" : ["D07542VR1J8", "D074M1VSE9M", "D074YM3FF45", "C074JSY3QV8"],
+    "reminders": [
+        {
+            "day": "Monday",
+            "time": "08:30",
+            "message": "Reminder: Daily Scrum meeting starts in 30 minutes!"
+        },
+        {
+            "day": "Tuesday",
+            "time": "08:30",
+            "message": "Reminder: Daily Scrum meeting starts in 30 minutes!"
+        },
+        {
+            "day": "Wednesday",
+            "time": "08:30",
+            "message": "Reminder: Daily Scrum meeting starts in 30 minutes!"
+        },
+        {
+            "day": "Thursday",
+            "time": "08:30",
+            "message": "Reminder: Daily Scrum meeting starts in 30 minutes!"
+        },
+        {
+            "day": "Friday",
+            "time": "08:30",
+            "message": "Reminder: Daily Scrum meeting starts in 30 minutes!"
+        }
+    ]
+}
