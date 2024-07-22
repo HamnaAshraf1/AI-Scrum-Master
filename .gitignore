@@ -1,2 +1,3 @@
 slacktoken.py
 slackbot/env/
+slackbot/__pycache__

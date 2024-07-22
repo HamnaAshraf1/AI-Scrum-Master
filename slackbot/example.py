@@ -205,7 +205,7 @@ def app_message(event, say):
     #     },
     # ])
     
-    resp_msg = ollama.chat(model='llama3', messages= conversation_history[sender_id])
+    resp_msg = ollama.chat(model='llama3', messages= session[sender_id])
 
 
 
