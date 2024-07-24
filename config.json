@@ -1,0 +1,10 @@
+{
+    "CHANNEL_IDS" : ["U075QC694N4", "U074ZR41109", "U075E7VDC01", "#project"],
+    "reminders": [
+        {
+            "time": "8:30",
+            "message": "Reminder: Daily Scrum meeting starts in 30 minutes!"
+        }
+        
+    ]
+}
