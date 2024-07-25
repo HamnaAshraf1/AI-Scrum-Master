@@ -1,0 +1,91 @@
+Term,Definition,Synonym
+Acceptance Criteria,Acceptance Criteria are criteria set by the project stakeholders or product owner that a software feature or project must meet to be considered complete and satisfactory for the end user.,Completion Criteria
+Acceptance Test,An Acceptance Test is a testing phase to verify whether a software system meets the agreed-upon Acceptance Criteria and is ready for deployment.,Validation Testing
+Agile,"Agile is a project management and software development approach based on iterative development that results in frequent minor releases. In agile, requirements and solutions evolve through collaboration between self-organizing cross-functional teams, who typically engage in 'Agile events.'",Adaptive Project Management
+Agile Ceremonies,"Agile Ceremonies are prescribed events in the Agile methodology that ensure regular and proper execution of the Agile process, including Sprint Planning, Daily Stand-ups, Sprint Reviews, and Sprint Retrospectives.",Agile Rituals
+Agile Coaching,Agile Coaching is the process of guiding and mentoring individuals and teams to improve their understanding and adoption of Agile principles and practices.,Agile Mentoring
+Agile Development,"Agile Development is a subset of Agile methodologies specifically applied to software development involving iterative and incremental development, where requirements and solutions evolve through collaboration.",Agile Software Development
+Agile Manifesto,The Agile Manifesto is a formal proclamation of four key values and twelve principles guiding the Agile software development approach.,Manifesto for Agile Software Development
+Agile Metrics,"Agile metrics are quantitative measures used in Agile projects to track and assess the progress, productivity, quality, and health of the development process and team.",Agile Performance Indicators
+Agile Mindset,"The Agile Mindset is a way of thinking that embraces the core values and principles of Agile, such as adaptability, collaboration, continual improvement, and a focus on delivering value.",Agile Thinking
+Agile Portfolio Management,"The application of Agile principles and practices to the management of project portfolios, prioritizing agility and flexibility in decision-making.",Adaptive Portfolio Management
+Agile Principle,"Agile Principles are fundamental concepts that guide the Agile methodology, emphasizing customer satisfaction, early and continuous delivery, collaboration, and responding to change.",Agile Values
+Agile Product Delivery (APD),"An approach focusing on delivering products and services to customers in a continuous and customer-centric manner, emphasizing adaptability and value.",Continuous Product Delivery
+Agile Release Train (ART),"A team of Agile teams that work together to deliver solutions incrementally in a value stream, typically part of the Scaled Agile Framework.",Release Train
+Agile Software Development,"An approach to software development under the Agile methodology, emphasizing iterative development, collaboration, and customer feedback.",Agile Programming
+Agile Teams,"Cross-functional groups, usually comprising 10 or fewer individuals, possessing all necessary skills to define, build, test, and deliver value in an Agile project.",Cross-Functional Agile Group
+Agile Transformation,"The process of transitioning an entire organization or team to adopt Agile methodologies, involving a change in culture, practices, and mindset.",Agile Change Management
+Backlog,"A backlog is a prioritized list of tasks, features, or user stories that are yet to be worked on in an Agile project.",Task Queue
+Backlog Refinement,"Backlog refinement is the ongoing process of reviewing, updating, and prioritizing backlog items to ensure readiness for future sprints.",Backlog Grooming
+Behavior-Driven Development (BDD),"A software development approach that enhances collaboration among developers, QA teams, and non-technical stakeholders by defining expectations and outcomes in understandable language.",Specification by Example
+Blended Learning,"A training method in Agile that combines different learning approaches, such as digital learning and face-to-face interaction, to enhance understanding and application of Agile principles.",Hybrid Learning
+Bottleneck,"A point of congestion or blockage in a process that slows down or impedes workflow, commonly identified and addressed in Agile methodologies.",Workflow Constraint
+Burn Down Chart,"A burndown chart is a graphical representation used in Agile projects to track the work remaining versus time, typically in a sprint. Note: In Zenhub, this is called a Sprint Report.","Progress Chart, Sprint Report"
+Burnup Chart,A burnup chart is a chart used in Agile to visualize the amount of work completed against the total work scope over time.,Scope Chart
+Cadence,"The rhythm or pattern of iterations in an Agile project, such as the length of sprints or releases.",Iteration Rhythm
+Community of Practice (CoP),A group of individuals in an Agile environment who share and collaboratively improve their Agile practices and knowledge.,Practice Group
+Continuous Feedback,The practice in Agile of providing ongoing feedback to team members and stakeholders to improve processes and products continuously.,Ongoing Feedback
+Continuous Integration (CI),"An Agile development practice where developers frequently integrate their work, often daily, to detect integration errors quickly.",Continuous Code Integration
+Cross-Functional Team,A team composed of members with various functional expertise and skills working towards a common goal in an Agile project.,Multidisciplinary Team
+Cumulative Flow Diagram (CFD),"A visual tool used in Agile to show the amount of work in different workflow stages over time, aiding in identifying bottlenecks.",Workflow Diagram
+DAD (Disciplined Agile Delivery),An Agile framework that provides a comprehensive guide and toolkit for large organizations to implement Agile methodologies effectively.,Disciplined Agile Approach
+Daily Scrum,"A short, daily team meeting in Scrum to synchronize activities and create a plan for the next 24 hours.",Daily Stand-up
+Definition of Done (DoD),"In Agile methodologies, the Definition of Done is a clear and concise list of criteria that a software product or a project feature must meet to be considered complete. This ensures transparency and quality in the delivery process.",Completion Criteria
+Definition of Quality (DoQ),A set of predefined standards and criteria that Agile projects must meet to ensure quality in the final product.,Quality Benchmarks
+Definition of Ready (DoR),A checklist of criteria that must be met before a user story or task is accepted into a sprint for development in Agile.,Readiness Criteria
+DevOps,"An approach that bridges the gap between software development and IT operations, emphasizing collaboration and automation to improve productivity and efficiency.",DevOps Collaboration
+DSDM (Dynamic Systems Development Method),"An Agile framework that focuses on delivering software projects in a controlled, iterative, and incremental manner.",Dynamic Development Method
+Empathy Map,"A tool used in Agile to gain insights into customers’ thoughts, feelings, and behaviors, helping to understand user needs better.",User Empathy Tool
+Empirical Process Control,"A principle in Agile and Scrum that emphasizes decision-making based on observation, experience, and experiment.",Evidence-Based Management
+Epics,"Large, complex user stories that are broken down into smaller stories in Agile methodologies, often spanning multiple sprints.",Feature Epics
+Extreme Programming (XP),"An Agile software development methodology that emphasizes customer satisfaction, continuous feedback, and iterative development.",XP Methodology
+Feature Driven Development (FDD),An iterative and incremental software development methodology focused on building and designing specific features.,Feature-Based Development
+Feature Toggle,A technique in Agile development allowing teams to switch certain software application features on or off during runtime.,Feature Switch
+Fist of Five,A consensus-building technique used in Agile teams where team members vote on a scale of 1-5 using fingers to indicate their level of agreement.,Five Finger Consensus
+Hyperproductive Team,An Agile team that achieves significantly higher productivity and efficiency than the norm.,High-Performance Team
+Impact Mapping,A strategic planning technique in Agile that helps align team activities with overall business goals and outcomes.,Outcome Mapping
+Incremental Development,"An Agile approach where a product is developed in small, manageable increments, allowing for frequent reassessment and adaptation.",Iterative Development
+Information Radiator,"A large, visible display used in Agile environments to present key information and metrics about the project’s progress.",Big Visible Chart
+Iteration Planning,The process in Agile methodologies of planning the work and objectives for a specific iteration or Sprint.,Sprint Planning
+Kanban,"An Agile methodology focused on visualizing work, limiting work-in-progress, and maximizing efficiency or flow.",Visual Workflow Management
+Kanban Board,A tool used in Kanban methodology to visualize work at various stages using columns and cards.,Task Board
+Lean,An Agile methodology focused on creating value for the customer with fewer resources by eliminating process waste.,Lean Methodology
+Lean Startup,A methodology used in Agile environments emphasizing the development of products through iterative releases and validated learning.,Iterative Startup Approach
+LeSS (Large-Scale Scrum),An Agile framework for scaling Scrum to multiple teams working on the same product or project.,Large-Scale Scrum
+Minimum Marketable Feature (MMF),The smallest set of functionality in a product that still delivers value and is viable for release.,Minimal Viable Feature
+Mob Programming,An approach in Agile software development where the whole team works on the same problem simultaneously in the same space.,Whole Team Approach
+Pair Programming,"A software development technique where two programmers work together at one workstation, with one writing code and the other reviewing it.",Collaborative Programming
+Parking Lot,A method used in meetings and Agile environments to set aside off-topic discussions or ideas for later review.,Issue Hold Area
+Planning Poker,"A consensus-based, gamified technique used in Agile environments for estimating the effort or size of development goals in software development. This technique encourages discussion and provides an entertaining approach to reaching agreement on story points.",Scrum Poker
+Product Increment,"The sum of product backlog items completed during a sprint, integrated with the work of all previous sprints.",Incremental Release
+Product Owner,"A pivotal role in Agile and Scrum frameworks, the Product Owner is responsible for defining user stories, prioritizing the backlog, and setting the project’s direction to maximize value delivery. They act as a liaison between stakeholders and the development team, ensuring the product aligns with user needs and business objectives.",Product Lead
+Product Roadmap,"Product Roadmaps are high-level, strategic visual summaries outlining the vision, direction, priorities, and progress of a product over time.",Product Strategy Roadmap
+Product Vision Board,"A tool used in Agile for defining and communicating the strategic vision of a product, including objectives, target audience, and key features.",Vision Board
+RAD (Rapid Application Development),An Agile software development approach emphasizing rapid prototyping and iterative delivery.,Quick Development Method
+Refactoring,Restructuring existing computer code without changing its external behavior to improve nonfunctional attributes.,Code Improvement
+Relative Estimation,An Agile technique of estimating the effort or size of user stories relative to each other rather than in absolute terms.,Comparative Estimation
+Requirements,"Detailed descriptions of the functionality, features, or conditions a software product must satisfy.",Specifications
+SAFe (Scaled Agile Framework Enterprise),An Agile framework for scaling Agile principles and practices to large organizations and complex projects.,Scaled Agile Framework
+Scaled Agile,The practice of applying Agile methodologies to large-scale projects or entire organizations.,Agile at Scale
+Scrum,"An Agile framework for managing complex projects, typically software development, emphasizing iterative progress, collaboration, and flexibility.",Scrum Framework
+Scrum Board,"A physical or digital board used in Scrum to visualize the work in a Sprint, typically showing columns for backlog, in progress, and done.",Sprint Board
+Scrum Master,A role within the Scrum framework responsible for ensuring the team follows Agile practices and removes impediments to their progress.,Agile Coach
+Scrum Meeting,"Scrum meetings are regular meetings in the Scrum framework, including daily stand-ups, sprint planning, sprint reviews, and retrospectives, to facilitate communication and progress.",Scrum Ceremonies
+Scrum of Scrums,"A technique in Scrum used to coordinate complex projects involving multiple teams, where representatives from each team meet to discuss progress and impediments.",Meta Scrum
+Scrumban,"A hybrid Agile methodology combining elements of Scrum and Kanban, often used to transition from Scrum to a more flow-based approach.",Agile Hybrid Method
+Servant Leadership,"A leadership philosophy in Agile and Scrum where the leader’s primary role is to serve the team, removing impediments and facilitating success.",Supportive Leadership
+Spike,"A task in Agile methodologies, particularly in Scrum, for researching a question or a problem to gain a deeper understanding.",Exploration Task
+Sprint,"A fixed time period in the Scrum methodology during which specific work is completed and made ready for review, typically lasting 2-4 weeks.",Iteration
+Sprint Backlog,A Sprint Backlog is a list of tasks identified by the Scrum team to be completed during the upcoming Sprint.,Iteration Backlog
+Sprint Goal,"The intended outcome or objective for a Sprint in Scrum, guiding the team on why they are building what they are building during the Sprint.",Iteration Objective
+Sprint Planning,Sprint Planning is a Scrum ceremony where the team selects items from the product backlog to work on during the upcoming Sprint.,Iteration Planning
+Sprint Retrospective,A Sprint Retrospective is a meeting at the end of each Sprint in Scrum to reflect on the process and identify improvements for the next Sprint.,Iteration Retrospective
+Sprint Review,A Sprint Review is a meeting in Scrum at the end of each Sprint where the team presents the completed work to stakeholders for feedback.,Iteration Review
+Stakeholder,Stakeholders are individuals or groups who have an interest in the outcome of a project and can be internal or external to the organization undertaking the project.,Interested Party
+Stories,"Short, simple descriptions of a feature or function told from the user’s perspective, used in Agile and Scrum for planning and discussion.",User Stories
+Story Points,Story Points are a unit of measurement used in Agile methodologies to estimate the effort required to implement a user story or task.,Effort Points
+Swarming,Swarming is an Agile technique where more than one team member works on a task considered too complex for a single team member.,Collaborative Work
+Task Board,A visual board used in Agile and Scrum methodologies to track tasks and their progress throughout a Sprint.,Scrum Board
+Technical Spike,A type of research task in Agile methodologies aimed at answering technical questions or exploring technical possibilities.,Technical Exploration
+Test-Driven Development (TDD),"An Agile software development technique where tests are written before the code, ensuring that software is tested thoroughly from the outset.",Test-First Development
+Timeboxes,"A fixed duration of time allocated to an activity in Agile methodologies, such as a Sprint, used to help manage work and deadlines.",Time Constraints

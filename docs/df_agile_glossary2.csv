@@ -1,0 +1,51 @@
+Term,Definition,Synonym
+Agile Estimation,"Agile estimation is a process of agreeing on a size measurement for the stories in a product backlog. Agile estimation is done by the team, usually using Planning Poker.",None
+The Agile Manifesto,"The Agile Manifesto was developed by a group fourteen leading figures in the software industry, and reflects their experience of what approaches do and do not work for software development. Individuals and interactions over processes and tools. Working software over comprehensive documentation. Customer collaboration over contract negotiation. Responding to change over following a plan.",None
+Agile Methodology,"Agile Methodology is an umbrella term for several iterative and incremental software development methodologies. The most popular agile methodologies include: extreme programming (XP), Scrum, Crystal, Dynamic Systems Development (DSDM), Lean Development, and Feature Driven Development (FDD). All Agile methods share a common vision and core values of the Agile Manifesto.",None
+Agile Methods,"Some well-known agile software development methods include: Agile modeling, Agile Unified Process (AUP), Dynamic Systems Development Method (DSDM), Essential Unified Process (EssUP), Feature Driven Development (FDD), Open Unified Process (Open UP), Scrum, Velocity Tracking.",None
+Agile Modeling,"Agile Modeling is a practice-based methodology for Modeling and documentation of software-based systems. It is intended to be a collection of values, principles, and practices for Modeling software that can be applied on a software development project in a more flexible manner than traditional Modeling methods.",None
+Agile Planning Basics,"The four basics of Agile planning are: Product Backlog, Estimates, Priorities and Velocity.",None
+Agile Planning - Estimates,Estimates answer the question: 'How long will it take or how many can we do by a given date?',None
+Agile Planning  Priorities,Priorities answer the question: 'Which capabilities are most important?',None
+Agile Planning - Product Backlog,The Product Backlog answers the question: 'What capabilities are needs for financial success?',None
+Agile Planning Velocity,Velocity answers the question: 'How much can the team complete in a Sprint?',None
+Agile Software Development,"Agile software development is a group of software development methodologies based on iterative and incremental development, where requirements and solutions evolve through collaboration between self-organizing teams, cross-functional teams.",None
+Burndown Chart,A Burndown chart is a chart showing how much work remaining in a sprint. Calculated in hours remaining and maintained by the Scrum Master daily.,None
+Business Value,"Each user story in the Product Backlog should have a corresponding business value assigned. Typically assign (L,M,H) Low, Medium, High. Product Owner prioritizes Backlog items by highest value.",None
+Capacity,"Capacity is the Number of Teammates (Productive Hours x Sprint Days). Example: Team size is 4, Productive hours are 5, Sprint length is 30 days. Capacity = 4(5x30) = 600 hours.",None
+Chickens,Chickens are the people that are not committed to the project and are not accountable for deliverables.,None
+Daily Scrum Meeting,"The Daily Scrum Meeting is a minimalist status meeting, time-boxed to fifteen minutes. Its purpose is to ensure that questions are answered quickly, that issues are identified and addressed quickly, and to provide Team members with a common understanding of how the Sprint is progressing.",None
+Defect,"A defect is a failure or bug of the product to behave in the expected fashion. Defects are stored in a bug-tracking system, which may or may not be physically the same system used to store the Product Backlog.",None
+Done,"The term Done is used to describe a product increment that is considered releasable; it means that all design, coding, testing and documentation have been completed and the increment is fully integrated into the system.",None
+Epic,An Epic is a very large user story that is eventually broken down into smaller stories; epics are often used as placeholders for new ideas that have not been thought out fully.,None
+Impediment,"Anything that prevents the team from meeting their potential. If organizational, it is the Scrum Masters responsibility to eliminate it. If it is internal to the team, then they themselves should deal with it.",None
+INVEST criteria for User Stories,"INVEST: Independent, Negotiable, Valuable, Estimable, Small, Testable.",None
+Pigs,Pigs are the people who are accountable for projects success.,None
+Planning Poker,Planning poker is a game used to apply estimates to stories. It uses a voting approach designed to avoid influence bias.,None
+Product Backlog,"The Product Backlog is the set of all un-implemented Product Backlog Items (requirements, in the form of Stories and Defects) that have not been assigned to the current Sprint.",None
+Product Owner,The Product Owner is the keeper of the requirements. He provides the “single source of truth” for the Team regarding requirements and their planned order of implementation.,None
+Release Backlog,The Release Backlog is the same as the product backlog. May involve one or more sprints dependent on determined release date.,None
+Retrospective Meeting,"The Retrospective meeting is held after the Sprint Review meeting. Its purpose is to provide the Team an opportunity to learn, and therefore improve, from the experience of the just-concluded Sprint.",None
+Scrum Artifacts,"The three Scrum Artifacts are the Sprint Backlog, the Product backlog, and the Burndown chart.",None
+Scrum Development,"Scrum is a lightweight process framework for agile development, and the most widely-used one.",None
+Scrum Meetings,"The three Scrum meetings are the Sprint planning meeting, the Daily Scrum Meeting, Sprint Review meeting, and the Retrospective meeting.",None
+Scrum Process,Sprint planning --> Product backlog --> Sprint Backlog --> Daily Scrum --> Sprint --> Shippable Product --> Sprint Retrospective --> Product Backlog… etc,None
+ScrumMaster,"The Scrum Master is the keeper of the process. He/she is responsible for making the process run smoothly, for removing obstacles that impact productivity, and for organizing and facilitating the critical meetings.",None
+Self-Organizing,Teams are self-organized meaning they have both responsibility & authority. They are all motivated by a common goal.,None
+Single Wringable Neck,This is the Product Owner.,None
+Sprint Backlog,"The Sprint Backlog is the set of Product Backlog Items, or PBIs (Stories and Defects) planned for implementation in a Sprint.",None
+Sprint Planning Meeting,"The ScrumMaster facilitates the Sprint Planning Meeting, which kicks off the Sprint, and which is attended by the team members and the Product Owner. The purpose of this meeting is to select from the Product Backlog those Product Backlog Items (PBI’s) the Team intends to implement in this Sprint.",None
+Sprint Review Meeting,"The Spring Review meeting (also called Sprint Demo) held at the end of the Sprint. The team demonstrates the Sprint’s completed Product Backlog, to the Product Owner and other interested parties.",None
+Sprint Task,A Sprint Task is a single small item of work that helps one particular story reach completion.,None
+Sprint,"The basic development cycle for a project. Most often a sprint is 2-4 weeks, however, different organizations and projects select Sprint lengths that best meet their needs.",None
+Stakeholders,"Anyone who needs something from the team or anyone who the team needs something from. Examples: Executives, Auditors, Security specialists, Enterprise Architects, Support engineers etc.",None
+Story points,A Story Point is a simple way to initially estimate level of effort expected to develop. Story points are a relative measure of feature difficulty. Usually scored on a scale of 1-10. 1=very easy through 10=very difficult.,None
+Story Template,A Story Template looks like this: “As a “user” I want “function” so that “result”.,None
+Task Board,"A task board is a white board containing the teams Sprint goals, backlog items, tasks, tasks in progress, “DONE” items and the daily Sprint Burndown Chart.","Kanban board, Scrum board, Cork board, Whiteboard"
+Team,"The Team is a self-organized and cross functional group of people who do the hands-on work of developing and testing the product. They are responsible for producing the product, it must also have the authority to make decisions about how to perform the work. Team is 7+/-2 members.",None
+Technical Story,"Technical stories are the requirements that do not represent user-facing features, but do represent significant work that may support user-facing features.",None
+Three Scrum Roles,"The three Scrum roles are the ScrumMaster, the Product Owner & the Team.",None
+Time box,"A Time box is a span of time of fixed duration, dedicated to a particular purpose, whose boundaries are strictly enforced.",None
+User Story,"A User story describes a desired feature (functional requirement) in narrative form. It usually contains a name, description, screen and external documents, and information about how the implementation will be tested.",None
+Velocity,Velocity is the rate at which team converts items to “DONE” in a single Sprint. Usually calculated in Story Points.,None
+XP (Extreme Programming),Extreme Programming is a software development methodology in which a team has to complete a working software in 1-2 weeks.,Extreme Scrum
