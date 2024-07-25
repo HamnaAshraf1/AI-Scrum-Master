@@ -105,42 +105,41 @@ def get_event_text(event):
     return event.get('event', {}).get('text')
 
 
-
-
 with open('config.json') as config_file:
     config = json.load(config_file)
 
 CHANNEL_IDS = config["CHANNEL_IDS"]
 
-def send_reminder(message):
-    for channel_id in CHANNEL_IDS:
-        try:
-            response = app.client.chat_postMessage(
-                channel=channel_id,
-                text=message
-            )
-            assert response["message"]["text"] == message
-        
-        except SlackApiError as e:
-            print(f"Error sending message to {channel_id}: {e.response['error']}")
 
-def schedule_reminders():
+def send_reminders():
     for reminder in config["reminders"]:
-        day = reminder["day"]
+        today = datetime.date.today()
+
         time_str = reminder["time"]
         message = reminder["message"]
 
-        if day == "Monday":
-            schedule.every().monday.at(time_str).do(send_reminder, message)
-        elif day == "Tuesday":
-            schedule.every().tuesday.at(time_str).do(send_reminder, message)
-        elif day == "Wednesday":
-            schedule.every().wednesday.at(time_str).do(send_reminder, message)
-        elif day == "Thursday":
-            schedule.every().thursday.at(time_str).do(send_reminder, message)
-        elif day == "Friday":
-            schedule.every().friday.at(time_str).do(send_reminder, message)
+        if today.weekday() < 5:
+            t = datetime.datetime.strptime(time_str, "%H:%M").time()
+            hour = t.hour
+            minute = t.minute
+            scheduled_time = datetime.time(hour=hour, minute=minute)
 
+            schedule_timestamp = datetime.datetime.combine(today, scheduled_time).timestamp()
+            for channel_id in CHANNEL_IDS:
+                try:
+                    app.client.chat_scheduleMessage(
+                        channel = channel_id,
+                        post_at = schedule_timestamp,
+                        text = message
+                        )
+
+                except SlackApiError as e:
+                    print(f"Error sending message to {channel_id}: {e.response['error']}")
+
+                except Exception as e:
+                    print(f"An unexpected error occurred: {e}")
+
+        
 @app.event('app_mention')
 def app_mention(event, say):
     sender_id = get_event_userid(event)
@@ -205,7 +204,7 @@ def app_message(event, say):
     #     },
     # ])
     
-    resp_msg = ollama.chat(model='llama3', messages= conversation_history[sender_id])
+    resp_msg = ollama.chat(model='llama3', messages= session[sender_id])
 
 
 
@@ -226,17 +225,16 @@ def handle_alarms_command(ack, body, logger):
 #say()
 
 
-def register_scheduleMessage():
-#scheduled_time = datetime.datetime.now() + datetime.timedelta(seconds=120)
+# def register_scheduleMessage():
 
-    today = datetime.date.today()# + datetime.timedelta(days=0)
-    scheduled_time = datetime.time(hour=23, minute=59)
-    schedule_timestamp = datetime.datetime.combine(today, scheduled_time).strftime('%s')
+#     today = datetime.date.today()
+#     scheduled_time = datetime.time(hour=8, minute=30)
+#     schedule_timestamp = datetime.datetime.combine(today, scheduled_time).timestamp()
 
-    app.client.chat_scheduleMessage(
-        channel = '#project',
-        post_at = schedule_timestamp,
-        text = 'Time for Standup Meeting.')
+#     app.client.chat_scheduleMessage(
+#         channel = '#project',
+#         post_at = schedule_timestamp,
+#         text = 'Time for Standup Meeting.')
 
 
 #@app.action("button_click")
@@ -246,7 +244,7 @@ def register_scheduleMessage():
 
 if __name__ == '__main__':
     if check_llm():
-        register_scheduleMessage()
+        send_reminders()
         handler = SocketModeHandler(app, SLACK_APP_TOKEN)
         _thread.start_new_thread(run_flask, ())
         handler.start()
