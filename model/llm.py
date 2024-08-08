@@ -27,7 +27,6 @@ class LLM(ABC):
 
 
     def run_jira(self, system_role, conversation):
-        print(conversation)
         response = ollama.chat(model=self.model_name, messages=[System_Prompt[system_role]]+conversation, tools=jira_tools)
 
         # Process function calls made by the model

@@ -1,5 +1,6 @@
 import sys
 import logging
+import _thread
 
 from slackbot.bot import start_slack_bot
 from flaskapp.app import start_flask_app
