@@ -3,4 +3,4 @@
 ollama serve &
 sleep 5
 ollama list
-ollama pull llama3
+ollama pull llama3.1

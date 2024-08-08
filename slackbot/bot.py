@@ -1,3 +1,4 @@
+import re
 import json
 import datetime
 
@@ -9,15 +10,18 @@ import re
 from model.llm import LLM
 from slackbot.slackuser import slackuser 
 from slackbot.event_parse import parse_message
-from slackbot.slacktoken import SLACK_BOT_TOKEN, SLACK_APP_TOKEN
+
 import time
 
-llm = LLM('llama3:latest')
+from tokens import SLACK_BOT_TOKEN, SLACK_APP_TOKEN
+
+
+llm = LLM('llama3.1:latest')
 app = App(token=SLACK_BOT_TOKEN)
 users = dict()
 
 
-with open('config.json') as config_file:
+with open('slackbot/config.json') as config_file:
     config = json.load(config_file)
 
 CHANNEL_IDS = config["CHANNEL_IDS"]
@@ -50,6 +54,7 @@ def send_reminders():
 
                 except Exception as e:
                     print(f"An unexpected error occurred: {e}")
+
 
 
 meeting_active = False
@@ -106,10 +111,22 @@ def set_num_members(message, say):
             say("Please enter a valid number of members.")
 
 
-@app.message('jira')
+
+@app.message(re.compile('jira', re.IGNORECASE))
 def jira(event, say):
-    print('jira')
-    print(event)
+    user_id, channel, recv_msg = parse_message(event)
+
+    if user_id not in users.keys():
+        users[user_id] = slackuser(user_id)
+    users[user_id].conversation_grow(channel, 'user', recv_msg)
+
+    response = llm.run_jira('Jira_Assistant', users[user_id].get_conversation(channel))
+
+    resp_msg = response['message']['content']
+
+    users[user_id].conversation_grow(channel, 'assistant', resp_msg)
+
+    say(resp_msg)
 
 
 @app.event('message')
