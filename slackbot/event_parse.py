@@ -1,5 +1,5 @@
 
-from slackbot.slacktoken import SLACK_BOT_TOKEN
+from tokens import SLACK_BOT_TOKEN
 from slackbot.attachment import download, parse_audio
 
 

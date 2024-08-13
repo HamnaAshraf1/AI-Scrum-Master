@@ -1,3 +1,4 @@
+import re
 import json
 import datetime
 
@@ -5,19 +6,22 @@ from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 
 from slack_sdk.errors import SlackApiError
-
+import re
 from model.llm import LLM
 from slackbot.slackuser import slackuser 
 from slackbot.event_parse import parse_message
-from slackbot.slacktoken import SLACK_BOT_TOKEN, SLACK_APP_TOKEN
+
+import time
+
+from tokens import SLACK_BOT_TOKEN, SLACK_APP_TOKEN
 
 
-llm = LLM('llama3:latest')
+llm = LLM('llama3.1:latest')
 app = App(token=SLACK_BOT_TOKEN)
 users = dict()
 
 
-with open('config.json') as config_file:
+with open('slackbot/config.json') as config_file:
     config = json.load(config_file)
 
 CHANNEL_IDS = config["CHANNEL_IDS"]
@@ -52,10 +56,77 @@ def send_reminders():
                     print(f"An unexpected error occurred: {e}")
 
 
-@app.message('jira')
+
+meeting_active = False
+num_members = 0
+member_times = []
+current_member = 0
+
+def countdown(say, seconds):
+    for i in range(seconds, 0, -1):
+        say(f"{i}...")
+        time.sleep(1)
+
+def handle_member_timer(say):
+    global current_member
+    if current_member < len(member_times):
+        say(f"Member {current_member + 1}, your time starts now!")
+        time.sleep(member_times[current_member])
+        current_member += 1
+        if current_member < len(member_times):
+            say(f"Next member get ready!")
+            countdown(say, 3)
+            handle_member_timer(say)
+        else:
+            say("Meeting time is over. Thank you everyone!")
+    else:
+        say("Meeting time is over. Thank you everyone!")
+
+@app.message("start the meeting")
+def start_meeting(message, say):
+    global meeting_active
+    if not meeting_active:
+        ("$$$$$$$$$$$$$$$$$$$$$$$$$$$MEETING ACTIVE$$$$$$$$$$$$$$$$$$$$$$$$")
+        meeting_active = True
+        say("How many members are present today for the meeting?")
+    else:
+        say("A meeting is already in progress.")
+
+@app.message(re.compile(r'^\d+$'))
+def set_num_members(message, say):
+    global num_members, member_times, current_member
+    if meeting_active:
+        print("***************MEETING STARTED*********************")
+        num_members = int(message['text'])
+        if num_members > 0:
+            total_meeting_time = 15 * 60  # 15 minutes in seconds
+            member_time = total_meeting_time / num_members
+            member_times = [member_time] * num_members
+            current_member = 0
+            say(f"Each member will have {member_time / 60:.2f} minutes to speak.")
+            say("Get ready for the meeting.")
+            countdown(say, 5)
+            handle_member_timer(say)
+        else:
+            say("Please enter a valid number of members.")
+
+
+
+@app.message(re.compile('jira', re.IGNORECASE))
 def jira(event, say):
-    print('jira')
-    print(event)
+    user_id, channel, recv_msg = parse_message(event)
+
+    if user_id not in users.keys():
+        users[user_id] = slackuser(user_id)
+    users[user_id].conversation_grow(channel, 'user', recv_msg)
+
+    response = llm.run_jira('Jira_Assistant', users[user_id].get_conversation(channel))
+
+    resp_msg = response['message']['content']
+
+    users[user_id].conversation_grow(channel, 'assistant', resp_msg)
+
+    say(resp_msg)
 
 
 @app.event('message')

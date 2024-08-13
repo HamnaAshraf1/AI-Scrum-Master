@@ -4,8 +4,8 @@ ollama serve &
 
 sleep 5
 
-ollama pull llama3
+ollama pull llama3.1
 
 sleep 10
 
-python3 slackbot/example.py
+python3 start.py
