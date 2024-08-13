@@ -14,6 +14,7 @@ def get_models_ollama():
 
     return models_name
 
+
 def log_runtime(file_path):
     def decorator(func):
         def wrapper(*args, **kwargs):
