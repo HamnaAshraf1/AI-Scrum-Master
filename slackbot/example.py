@@ -49,7 +49,7 @@ def vectorization():
 def embedding():
     req = request.get_json()
     try:
-        ollama.embeddings(model='llama3', prompt=req['prrompt'])
+        ollama.embeddings(model='llama3.1', prompt=req['prrompt'])
     except:
         return jsonify('ERROR')
     return jsonify('OK')
@@ -60,7 +60,7 @@ def summary():
     text = conversation2txt(session)
     text += 'summary the conversation and build a todo list for every member: '
     message = [{'role': 'user', 'content': text}]
-    ollama.chat(model='llama3', messages=message)
+    ollama.chat(model='llama3.1', messages=message)
 
 
 @flask_app.route('/jira_update', methods=['POST'])
@@ -79,7 +79,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 def check_llm():
     for model in ollama.list()['models']:
-        if model.get('name') == 'llama3:latest':
+        if model.get('name') == 'llama3.1:latest':
             return True
     return False
 
@@ -152,7 +152,7 @@ def app_mention(event, say):
     else:
         session[sender_id] = [{'role': 'user', 'content': recv_msg}]
 
-    resp_msg = ollama.chat(model='llama3', messages=session[sender_id])
+    resp_msg = ollama.chat(model='llama3.1', messages=session[sender_id])
 
     session[sender_id] += [resp_msg['message']]
 
@@ -188,7 +188,7 @@ def app_message(event, say):
     else:
         session[sender_id] = [{'role': 'system', 'content': System_Prompt}, {'role': 'user', 'content': recv_msg}] 
 
-    resp_msg = ollama.chat(model='llama3', messages=session[sender_id])
+    resp_msg = ollama.chat(model='llama3.1', messages=session[sender_id])
 
     session[sender_id] += [resp_msg['message']]
 
@@ -197,14 +197,14 @@ def app_message(event, say):
 
 
 
-    # resp_msg = ollama.chat(model='llama3', messages=[
+    # resp_msg = ollama.chat(model='llama3.1', messages=[
     #     {
     #         'role': 'user',
     #         'content': recv_msg,
     #     },
     # ])
     
-    resp_msg = ollama.chat(model='llama3', messages= session[sender_id])
+    resp_msg = ollama.chat(model='llama3.1', messages= session[sender_id])
 
 
 
