@@ -1,6 +1,12 @@
-slacktoken.py
 tokens.py
 slackbot/env/
 slackbot/__pycache__
 flaskapp/__pycache__
 model/__pycache__
+__init__.py
+__pycache__/*
+*.swp
+projmgr/__pycache__/*
+.DS_Store
+.env
+

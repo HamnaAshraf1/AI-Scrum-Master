@@ -57,3 +57,4 @@ def jira_update():
 
 def start_flask_app():
     _thread.start_new_thread(flask_app.run, ('0.0.0.0', 80))
+
