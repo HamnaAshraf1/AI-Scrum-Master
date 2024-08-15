@@ -63,10 +63,12 @@ current_member = 0
 remaining_time = 0
 start_time = None  
 
+
 def countdown(say, seconds):
     for i in range(seconds, 0, -1):
         say(f"{i}...")
         time.sleep(1)
+
 
 def handle_member_timer(say):
     global current_member, remaining_time, start_time
@@ -91,8 +93,10 @@ def handle_member_timer(say):
     else:
         end_meeting(say)
 
+
 @app.message(re.compile(r'\b(start|begin|initiate|commence)\s*(the\s*)?(meeting|session|discussion)?\b', re.IGNORECASE))
 def start_meeting(message, say):
+    print('meeting')
     global meeting_active
     if not meeting_active:
         print("$$$$$$$$$$$$$$$$$$$$$$$$$$$MEETING ACTIVE$$$$$$$$$$$$$$$$$$$$$$$$")
@@ -101,7 +105,8 @@ def start_meeting(message, say):
     else:
         say("A meeting is already in progress.")
 
-@app.message(re.compile(r'\d+'))
+
+@app.message(re.compile(r'\b(\d+)\s*(members?|people|participants?)?\b'))
 def set_num_members(message, say):
     global num_members, member_times, current_member, remaining_time
     if meeting_active:
@@ -119,6 +124,7 @@ def set_num_members(message, say):
             handle_member_timer(say)
         else:
             say("Please enter a valid number of members.")
+
 
 @app.message(re.compile(r'\b(next|done|move (to|on|onto) (the\s*)?next|next member|move to (the\s*)?next member|go (on|to) (the\s*)?next|go to (the\s*)?next member)\b', re.IGNORECASE))
 def handle_next_member(message, say):
@@ -143,6 +149,7 @@ def handle_next_member(message, say):
     else:
         end_meeting(say)
 
+
 @app.message(re.compile(r'\b(end|stop|finish|cancel)\s*(the\s*)?(meeting|session|discussion)?\b', re.IGNORECASE))
 def handle_end_meeting(message, say):
     global meeting_active
@@ -151,11 +158,6 @@ def handle_end_meeting(message, say):
     else:
         say("There is no active meeting to end.")
 
-@app.message()
-def handle_irrelevant_message(message, say):
-    global meeting_active
-    if meeting_active:
-        say("A meeting is in progress. I can help you after the meeting ends.")
 
 def end_meeting(say):
     global meeting_active
@@ -184,6 +186,11 @@ def jira(event, say):
 
 @app.event('message')
 def bot_message(event, say):
+    global meeting_active
+    if meeting_active:
+        say("A meeting is in progress. I can help you after the meeting ends.")
+        return
+
     user_id, channel, recv_msg = parse_message(event)
 
     if user_id not in users.keys():
