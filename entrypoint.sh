@@ -1,5 +1,7 @@
 #!/bin/sh
 
+curl -fsSL https://ollama.com/install.sh | sh
+sleep 5
 ollama serve &
 
 sleep 5

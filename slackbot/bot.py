@@ -173,7 +173,7 @@ def jira(event, say):
         users[user_id] = slackuser(user_id)
     users[user_id].conversation_grow(channel, 'user', recv_msg)
 
-    response = llm.run_jira('Jira_Assistant', users[user_id].get_conversation(channel))
+    response = llm.run_jira('AI_Scrum_Assistant', users[user_id].get_conversation(channel))
 
     resp_msg = response['message']['content']
 
@@ -188,10 +188,10 @@ def bot_message(event, say):
 
     if user_id not in users.keys():
         users[user_id] = slackuser(user_id)
-    
+
     users[user_id].conversation_grow(channel, 'user', recv_msg)
 
-    response = llm.talk('AI_Scrum_Master', users[user_id].get_conversation(channel))
+    response = llm.talk('AI_Scrum_Assistant', users[user_id].get_conversation(channel))
     resp_msg = response['message']['content']
 
     users[user_id].conversation_grow(channel, 'assistant', resp_msg)
