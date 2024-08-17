@@ -51,7 +51,6 @@ class LLM(ABC):
 
     @log_runtime('function_runtime.log')
     def run_jira(self, system_role, conversation):
-        print(conversation)
         response = ollama.chat(model=self.model_name, messages=[System_Prompt[system_role]]+conversation, tools=jira_tools)
 
         # Process function calls made by the model
@@ -68,7 +67,6 @@ class LLM(ABC):
             conversation.append({'role': 'tool', 'content': function_response})
         else:
             return response
-
 
         # Second API call: Get final response from the model
         final_response = ollama.chat(model=self.model_name, messages=[System_Prompt[system_role]]+conversation)
