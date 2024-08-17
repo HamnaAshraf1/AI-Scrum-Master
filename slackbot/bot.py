@@ -56,52 +56,67 @@ def send_reminders():
                     print(f"An unexpected error occurred: {e}")
 
 
-
 meeting_active = False
 num_members = 0
 member_times = []
 current_member = 0
+remaining_time = 0
+start_time = None  
+
 
 def countdown(say, seconds):
     for i in range(seconds, 0, -1):
         say(f"{i}...")
         time.sleep(1)
 
+
 def handle_member_timer(say):
-    global current_member
+    global current_member, remaining_time, start_time
     if current_member < len(member_times):
         say(f"Member {current_member + 1}, your time starts now!")
-        time.sleep(member_times[current_member])
+        start_time = time.time()  
+
+        while time.time() - start_time < member_times[current_member]:
+            if not meeting_active:
+                return
+            time.sleep(1)
+
+        remaining_time -= member_times[current_member]
         current_member += 1
+
         if current_member < len(member_times):
             say(f"Next member get ready!")
             countdown(say, 3)
             handle_member_timer(say)
         else:
-            say("Meeting time is over. Thank you everyone!")
+            end_meeting(say)
     else:
-        say("Meeting time is over. Thank you everyone!")
+        end_meeting(say)
 
-@app.message("start the meeting")
+
+@app.message(re.compile(r'\b(start|begin|initiate|commence)\s*(the\s*)?(meeting|session|discussion)?\b', re.IGNORECASE))
 def start_meeting(message, say):
+    print('meeting')
     global meeting_active
     if not meeting_active:
-        ("$$$$$$$$$$$$$$$$$$$$$$$$$$$MEETING ACTIVE$$$$$$$$$$$$$$$$$$$$$$$$")
+        print("$$$$$$$$$$$$$$$$$$$$$$$$$$$MEETING ACTIVE$$$$$$$$$$$$$$$$$$$$$$$$")
         meeting_active = True
         say("How many members are present today for the meeting?")
     else:
         say("A meeting is already in progress.")
 
-@app.message(re.compile(r'^\d+$'))
+
+@app.message(re.compile(r'\b(\d+)\s*(members?|people|participants?)?\b'))
 def set_num_members(message, say):
-    global num_members, member_times, current_member
+    global num_members, member_times, current_member, remaining_time
     if meeting_active:
         print("***************MEETING STARTED*********************")
-        num_members = int(message['text'])
+        num_members = int(re.search(r'\d+', message['text']).group())
         if num_members > 0:
             total_meeting_time = 15 * 60  # 15 minutes in seconds
             member_time = total_meeting_time / num_members
             member_times = [member_time] * num_members
+            remaining_time = total_meeting_time
             current_member = 0
             say(f"Each member will have {member_time / 60:.2f} minutes to speak.")
             say("Get ready for the meeting.")
@@ -109,6 +124,46 @@ def set_num_members(message, say):
             handle_member_timer(say)
         else:
             say("Please enter a valid number of members.")
+
+
+@app.message(re.compile(r'\b(next|done|move (to|on|onto) (the\s*)?next|next member|move to (the\s*)?next member|go (on|to) (the\s*)?next|go to (the\s*)?next member)\b', re.IGNORECASE))
+def handle_next_member(message, say):
+    print("***************NEXT MEMBER*********************")
+    global current_member, member_times, remaining_time, start_time
+    if meeting_active and current_member < len(member_times):
+        elapsed_time = time.time() - start_time
+        remaining_time -= elapsed_time
+
+        remaining_members = len(member_times) - current_member - 1
+        if remaining_members > 0:
+            new_member_time = remaining_time / remaining_members
+            member_times[current_member + 1:] = [new_member_time] * remaining_members
+            say(f"Remaining time will be divided among {remaining_members} members. Each will have {new_member_time / 60:.2f} minutes.")
+        current_member += 1
+        if current_member < len(member_times):
+            say(f"Next member get ready!")
+            countdown(say, 3)
+            handle_member_timer(say)
+        else:
+            end_meeting(say)
+    else:
+        end_meeting(say)
+
+
+@app.message(re.compile(r'\b(end|stop|finish|cancel)\s*(the\s*)?(meeting|session|discussion)?\b', re.IGNORECASE))
+def handle_end_meeting(message, say):
+    global meeting_active
+    if meeting_active:
+        end_meeting(say)
+    else:
+        say("There is no active meeting to end.")
+
+
+def end_meeting(say):
+    global meeting_active
+    meeting_active = False
+    print("************MEETING ENDED*******************")
+    say("Meeting time is over. Thank you everyone!")
 
 
 
@@ -120,7 +175,7 @@ def jira(event, say):
         users[user_id] = slackuser(user_id)
     users[user_id].conversation_grow(channel, 'user', recv_msg)
 
-    response = llm.run_jira('Jira_Assistant', users[user_id].get_conversation(channel))
+    response = llm.run_jira('AI_Scrum_Assistant', users[user_id].get_conversation(channel))
 
     resp_msg = response['message']['content']
 
@@ -131,14 +186,19 @@ def jira(event, say):
 
 @app.event('message')
 def bot_message(event, say):
+    global meeting_active
+    if meeting_active:
+        say("A meeting is in progress. I can help you after the meeting ends.")
+        return
+
     user_id, channel, recv_msg = parse_message(event)
 
     if user_id not in users.keys():
         users[user_id] = slackuser(user_id)
-    
+
     users[user_id].conversation_grow(channel, 'user', recv_msg)
 
-    response = llm.talk('AI_Scrum_Master', users[user_id].get_conversation(channel))
+    response = llm.talk('AI_Scrum_Assistant', users[user_id].get_conversation(channel))
     resp_msg = response['message']['content']
 
     users[user_id].conversation_grow(channel, 'assistant', resp_msg)

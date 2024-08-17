@@ -1,5 +1,7 @@
+import os
 import sys
 import ollama
+import time
 
 from abc import ABC
 from projmgr.jira import *
@@ -14,6 +16,26 @@ def get_models_ollama():
     return models_name
 
 
+def log_runtime(file_path):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            start_time = time.time()
+            result = func(*args, **kwargs)
+            end_time = time.time()
+            runtime = end_time - start_time
+
+            if not os.path.exists(file_path):
+                with open(file_path, 'w') as file:
+                    file.write('Function Execution Time Log\n')
+
+            with open(file_path, 'a') as file:
+                file.write(f'{func.__name__} executed in {runtime:.4f} seconds\n')
+
+            return result
+        return wrapper
+    return decorator
+
+
 class LLM(ABC):
     def __init__(self, model_name):
         if model_name in get_models_ollama():
@@ -22,10 +44,12 @@ class LLM(ABC):
             sys.exit('Error: Model not exist: {}\n'.format(model_name))
 
 
+    @log_runtime('function_runtime.log')
     def talk(self, system_role, conversation):
         return ollama.chat(model=self.model_name, messages=[System_Prompt[system_role]]+conversation)
 
 
+    @log_runtime('function_runtime.log')
     def run_jira(self, system_role, conversation):
         print(conversation)
         response = ollama.chat(model=self.model_name, messages=[System_Prompt[system_role]]+conversation, tools=jira_tools)
